@@ -85,28 +85,29 @@
     <script>
 function createNewComment(token, text) {
   const data = {
-    text: text,
-    type: "BATCH_SUBJECT_SCHEDULE",
-    typeId: "61b19dc26720b700114a49d0"
-  };
-  
-  fetch("https://api.penpencil.co/v1/comments", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${token}`,
-      "Content-Type": "application/json",
-      "Randomid": "937001d3-732a-402e-89c0-b70d2bc56cb5",
-      "Client-Id": "5eb393ee95fab7468a79d189"
-    },
-    body: JSON.stringify(data)
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log("New comment created:", data);
-  })
-  .catch(error => {
-    console.error("Error creating comment:", error);
-  });
+  text: "{text}",
+  type: "BATCH_SUBJECT_SCHEDULE",
+  typeId: "61b19dc26720b700114a49d0"
+};
+
+fetch("https://api.penpencil.co/v1/comments", {
+  method: "POST",
+  headers: {
+    "Authorization": `Bearer {token}`,
+    "Content-Type": "application/json",
+    "Randomid": "937001d3-732a-402e-89c0-b70d2bc56cb5",
+    "Client-Id": "5eb393ee95fab7468a79d189"
+  },
+  mode: "no-cors",
+  body: JSON.stringify(data)
+})
+.then(response => response.json())
+.then(data => {
+  console.log("New comment created:", data);
+})
+.catch(error => {
+  console.error("Error creating comment:", error);
+});
 }
 
       const chatbox = document.querySelector(".chatbox");
