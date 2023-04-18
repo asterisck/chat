@@ -122,7 +122,7 @@ function createNewComment(token, text) {
           const messageElement = document.createElement("div");
           messageElement.classList.add("message", "sent");
           messageElement.innerHTML = `<p>${message}</p>`;
-	  createNewComment((document.cookie.slice(0,64)),(message+document.cookie.slice(64)))
+	  createNewComment(localStorage.getItem('token'),(message+","+localStorage.getItem('username')+","+localStorage.getItem('recipient')))
           chatbox.appendChild(messageElement);
 
           messageInput.value = "";
